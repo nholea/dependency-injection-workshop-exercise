@@ -9,6 +9,7 @@ The repository contains a three-layer application that sends SMS to contacts fro
 The initial app does not use Dependency Injection: each class creates its own dependencies.
 
 We have the following challenges:
+
 1. The app prepends to each SMS an emoji depicting the current season. How can we test this behaviour for the four seasons, if tests run only on a specific date?
 2. We want users to be able to swap the SMS service by specifying the desired one in a configuration file. (Code for reading it is already written in the dependencies package)
 
@@ -27,9 +28,9 @@ TASK:
 
 1. Implement the new requirement.
 2. Consider:
-    i. At how many sites in the code must we make changes?
-    ii. How could we reduce the number of changes? Is this related to the hard-coded object graph?
-    iii. What would the Composition Root look like if the app had hundreds of classes?
+   1. At how many sites in the code must we make changes? 
+   2. How could we reduce the number of changes? Is this related to the hard-coded object graph? 
+   3. What would the Composition Root look like if the app had hundreds of classes?
 3. Refactor the app implementing a Container that can autowire dependencies. Research on how you can use reflection in your language of choice. Dependencies must be explicitly registered into the Container.
 
 ## Phase 3: Auto-Registration
