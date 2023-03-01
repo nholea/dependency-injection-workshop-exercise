@@ -53,7 +53,15 @@ class SendMessageTest {
 
     @Test
     public void itPrependsASummerEmojiInSummer() {
-        // TODO()
+    when(dateProvider.getMonthNumber()).thenReturn(9);
+    when(dateProvider.getDayOfMonthNumber()).thenReturn(21);
+    Message message = generateMessage("is Summer!");
+
+    sendMessage.execute(message);
+
+    verify(smsSender).send(any(), messageContent.capture());
+    String expectedMessage = "\uD83C\uDF1Eis Summer!";
+    assertThat(messageContent.getValue()).isEqualTo(expectedMessage);
     }
 
     @Test
