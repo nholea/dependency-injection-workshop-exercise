@@ -1,6 +1,5 @@
 package app.core;
 
-import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -18,6 +17,9 @@ import static org.mockito.Mockito.when;
 class SendMessageTest {
     @Mock
     SmsSender smsSender;
+
+    @Mock
+    DateProvider dateProvider;
     @InjectMocks
     SendMessage sendMessage;
     @Captor
@@ -25,15 +27,15 @@ class SendMessageTest {
 
     @Test
     public void itPrependsAWinterEmojiInWinter() {
-    when(LocalDate.now().getMonthValue()).thenReturn(6);
-    when(LocalDate.now().getDayOfMonth()).thenReturn(15);
+    when(dateProvider.getMonthNumber()).thenReturn(3);
+    when(dateProvider.getDayOfMonthNumber()).thenReturn(1);
     Contact contact = new Contact("","","1111111","");
-    Message message = new Message("is Spring!", contact);
+    Message message = new Message("is Winter!", contact);
 
     sendMessage.execute(message);
 
     verify(smsSender).send(any(), messageContent.capture());
-    String expectedMessage = "\uD83C\uDF37is Spring!";
+    String expectedMessage = "\u2744\uFE0Fis Winter!";
     assertThat(messageContent.getValue()).isEqualTo(expectedMessage);
     }
 
