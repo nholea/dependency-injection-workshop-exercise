@@ -29,10 +29,9 @@ class SendMessageTest {
     public void itPrependsAWinterEmojiInWinter() {
     when(dateProvider.getMonthNumber()).thenReturn(3);
     when(dateProvider.getDayOfMonthNumber()).thenReturn(1);
-    Contact contact = new Contact("","","1111111","");
-    Message message = new Message("is Winter!", contact);
+        Message message = generateMessage("is Winter!");
 
-    sendMessage.execute(message);
+        sendMessage.execute(message);
 
     verify(smsSender).send(any(), messageContent.capture());
     String expectedMessage = "\u2744\uFE0Fis Winter!";
@@ -52,5 +51,10 @@ class SendMessageTest {
     @Test
     public void itPrependsAnAutumnEmojiInAutumn() {
         // TODO()
+    }
+
+    private Message generateMessage(String content) {
+        Contact contact = new Contact("","","1111111","");
+        return new Message(content, contact);
     }
 }
