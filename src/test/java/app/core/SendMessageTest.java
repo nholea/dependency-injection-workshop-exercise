@@ -40,7 +40,15 @@ class SendMessageTest {
 
     @Test
     public void itPrependsASpringEmojiInSpring() {
-        // TODO()
+    when(dateProvider.getMonthNumber()).thenReturn(5);
+    when(dateProvider.getDayOfMonthNumber()).thenReturn(30);
+    Message message = generateMessage("is Spring!");
+
+    sendMessage.execute(message);
+
+    verify(smsSender).send(any(), messageContent.capture());
+    String expectedMessage = "\uD83C\uDF37is Spring!";
+    assertThat(messageContent.getValue()).isEqualTo(expectedMessage);
     }
 
     @Test
