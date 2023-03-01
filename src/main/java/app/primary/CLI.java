@@ -16,6 +16,7 @@ public class CLI implements UserInterface {
         display("\n");
     }
 
+    @Override
     public String read() throws IOException {
         return reader.readLine();
     }

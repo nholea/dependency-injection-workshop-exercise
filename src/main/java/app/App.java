@@ -11,6 +11,7 @@ import app.primary.Controller;
 import app.primary.Presenter;
 
 import app.secondary.ContactRepositoryImpl;
+import app.secondary.DefaultSmsSender;
 import app.secondary.ScreamingSmsSender;
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +21,7 @@ public class App {
         Presenter presenter = new Presenter();
         ContactRepository contactRepository = new ContactRepositoryImpl();
         GetContacts getContacts = new GetContacts(contactRepository);
-        SmsSender smsSender = new ScreamingSmsSender();
+        SmsSender smsSender = new DefaultSmsSender();
         SendMessage sendMessage = new SendMessage(smsSender);
         Controller controller = new Controller(getContacts, sendMessage);
         List<Registration> registrations = new RegistrationsReader().getRegistrations();
