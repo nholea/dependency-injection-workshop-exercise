@@ -12,7 +12,7 @@ public class SendMessage {
     public void execute(Message message) {
         String content = getSeasonEmoji() + message.content();
 
-        smsSender.send(message.destination().telephone(), content);
+        smsSender.send(message.getTelephoneNumber(), content);
     }
 
     private String getSeasonEmoji() {
