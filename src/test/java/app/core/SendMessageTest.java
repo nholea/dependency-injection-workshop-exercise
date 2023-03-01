@@ -15,66 +15,71 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class SendMessageTest {
-    @Mock
-    SmsSender smsSender;
 
-    @Mock
-    DateProvider dateProvider;
-    @InjectMocks
-    SendMessage sendMessage;
-    @Captor
-    ArgumentCaptor<String> messageContent;
+  @Mock
+  SmsSender smsSender;
 
-    @Test
-    public void itPrependsAWinterEmojiInWinter() {
-    when(dateProvider.getMonthNumber()).thenReturn(3);
-    when(dateProvider.getDayOfMonthNumber()).thenReturn(1);
-    Message message = generateMessage("is Winter!");
+  @Mock
+  DateProvider dateProvider;
+  @InjectMocks
+  SendMessage sendMessage;
+  @Captor
+  ArgumentCaptor<String> messageContent;
 
-    sendMessage.execute(message);
+  @Test
+  public void itPrependsAWinterEmojiInWinter() {
+  String winterEmoji = "\u2744\uFE0F";
+  when(dateProvider.getMonthNumber()).thenReturn(3);
+  when(dateProvider.getDayOfMonthNumber()).thenReturn(1);
+  Message message = generateMessage("is Winter!");
 
-    verify(smsSender).send(any(), messageContent.capture());
-    assertThat(messageContent.getValue()).contains("\u2744\uFE0F");
-    }
+  sendMessage.execute(message);
 
-    @Test
-    public void itPrependsASpringEmojiInSpring() {
-    when(dateProvider.getMonthNumber()).thenReturn(5);
-    when(dateProvider.getDayOfMonthNumber()).thenReturn(30);
-    Message message = generateMessage("is Spring!");
+  verify(smsSender).send(any(), messageContent.capture());
+  assertThat(messageContent.getValue()).contains(winterEmoji);
+  }
 
-    sendMessage.execute(message);
+  @Test
+  public void itPrependsASpringEmojiInSpring() {
+  String springEmoji = "\uD83C\uDF37";
+  when(dateProvider.getMonthNumber()).thenReturn(5);
+  when(dateProvider.getDayOfMonthNumber()).thenReturn(30);
+  Message message = generateMessage("is Spring!");
 
-    verify(smsSender).send(any(), messageContent.capture());
-    assertThat(messageContent.getValue()).contains("\uD83C\uDF37");
-    }
+  sendMessage.execute(message);
 
-    @Test
-    public void itPrependsASummerEmojiInSummer() {
-    when(dateProvider.getMonthNumber()).thenReturn(9);
-    when(dateProvider.getDayOfMonthNumber()).thenReturn(21);
-    Message message = generateMessage("is Summer!");
+  verify(smsSender).send(any(), messageContent.capture());
+  assertThat(messageContent.getValue()).contains(springEmoji);
+  }
 
-    sendMessage.execute(message);
+  @Test
+  public void itPrependsASummerEmojiInSummer() {
+  String summerEmoji = "\uD83C\uDF1E";
+  when(dateProvider.getMonthNumber()).thenReturn(9);
+  when(dateProvider.getDayOfMonthNumber()).thenReturn(21);
+  Message message = generateMessage("is Summer!");
 
-    verify(smsSender).send(any(), messageContent.capture());
-    assertThat(messageContent.getValue()).isEqualTo("\uD83C\uDF1E");
-    }
+  sendMessage.execute(message);
 
-    @Test
-    public void itPrependsAnAutumnEmojiInAutumn() {
-    when(dateProvider.getMonthNumber()).thenReturn(11);
-    when(dateProvider.getDayOfMonthNumber()).thenReturn(28);
-    Message message = generateMessage("is Autumn!");
+  verify(smsSender).send(any(), messageContent.capture());
+  assertThat(messageContent.getValue()).isEqualTo(summerEmoji);
+  }
 
-    sendMessage.execute(message);
+  @Test
+  public void itPrependsAnAutumnEmojiInAutumn() {
+  String autumnEmoji = "\uD83C\uDF42";
+  when(dateProvider.getMonthNumber()).thenReturn(11);
+  when(dateProvider.getDayOfMonthNumber()).thenReturn(28);
+  Message message = generateMessage("is Autumn!");
 
-    verify(smsSender).send(any(), messageContent.capture());
-    assertThat(messageContent.getValue()).isEqualTo("\uD83C\uDF42");
-    }
+  sendMessage.execute(message);
 
-    private Message generateMessage(String content) {
-        Contact contact = new Contact("","","1111111","");
-        return new Message(content, contact);
-    }
+  verify(smsSender).send(any(), messageContent.capture());
+  assertThat(messageContent.getValue()).isEqualTo(autumnEmoji);
+  }
+
+  private Message generateMessage(String content) {
+    Contact contact = new Contact("", "", "1111111", "");
+    return new Message(content, contact);
+  }
 }
