@@ -29,7 +29,7 @@ public class App {
         Controller controller = new Controller(getContacts, sendMessage, presenter);
         List<Registration> registrations = new RegistrationsReader().getRegistrations();
 
-        System.out.println(registrations.stream().spliterator());
+        System.out.println(registrations);
 
         while (true) {
             controller.sendMessage();
