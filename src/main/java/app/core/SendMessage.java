@@ -1,12 +1,13 @@
 package app.core;
 
-import java.time.LocalDate;
-
 public class SendMessage {
     private final SmsSender smsSender;
 
-    public SendMessage(SmsSender smsSender) {
+    private final DateProvider dateProvider;
+
+    public SendMessage(SmsSender smsSender, DateProvider dateProvider) {
         this.smsSender = smsSender;
+        this.dateProvider = dateProvider;
     }
 
     public void execute(Message message) {
@@ -16,9 +17,8 @@ public class SendMessage {
     }
 
     private String getSeasonEmoji() {
-        LocalDate date = LocalDate.now();
-        int month = date.getMonthValue();
-        int day = date.getDayOfMonth();
+        int month = dateProvider.getMonthNumber();
+        int day = dateProvider.getDayOfMonthNumber();
 
         String winter = "\u2744\uFE0F";
         String spring = "\uD83C\uDF37";
