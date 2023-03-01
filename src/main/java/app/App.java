@@ -8,7 +8,6 @@ import app.core.SmsSender;
 import app.core.UserInterface;
 import app.dependencies.Registration;
 import app.dependencies.RegistrationsReader;
-import app.core.Contact;
 import app.primary.CLI;
 import app.primary.Controller;
 import app.primary.Presenter;
@@ -27,16 +26,13 @@ public class App {
         GetContacts getContacts = new GetContacts(contactRepository);
         SmsSender smsSender = new DefaultSmsSender();
         SendMessage sendMessage = new SendMessage(smsSender, dateProvider);
-        Controller controller = new Controller(getContacts, sendMessage);
+        Controller controller = new Controller(getContacts, sendMessage, presenter);
         List<Registration> registrations = new RegistrationsReader().getRegistrations();
 
         System.out.println(registrations.stream().spliterator());
 
         while (true) {
-            List<Contact> contacts = controller.getContacts();
-            Contact chosenContact = presenter.requestContactChoice(contacts);
-            String message = presenter.requestMessage(chosenContact.name());
-            controller.sendMessage(chosenContact, message);
+            controller.sendMessage();
         }
     }
 }
