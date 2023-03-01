@@ -9,10 +9,11 @@ import java.util.List;
 
 public class Controller {
     private final GetContacts getContacts;
-    private final SendMessage sendMessage = new SendMessage();
+    private final SendMessage sendMessage;
 
-    public Controller(GetContacts getContacts) {
+    public Controller(GetContacts getContacts, SendMessage sendMessage) {
         this.getContacts = getContacts;
+        this.sendMessage = sendMessage;
     }
 
     public List<Contact> getContacts() {
