@@ -18,7 +18,6 @@ public class CLI {
         display("\n");
     }
 
-
     public String read() throws IOException {
         return reader.readLine();
     }

@@ -20,25 +20,26 @@ import java.util.List;
 
 
 public class App {
-    public static void main(String[] args)
-      throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        RegistrationsReader registrationsReader =  new RegistrationsReader();
-        List<Registration> registrations = registrationsReader.getRegistrations();
-        Registration registration= registrations.get(0);
-        SmsSender smsSender = registrationsReader.getDesiredSmsServiceFrom(registration);
-        DateProvider dateProvider = new DateProvider();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        CLI cli = new CLI(reader);
-        Presenter presenter = new Presenter(cli);
-        ContactRepository contactRepository = new ContactRepositoryImpl();
-        GetContacts getContacts = new GetContacts(contactRepository);
-        SendMessage sendMessage = new SendMessage(smsSender, dateProvider);
-        Controller controller = new Controller(getContacts, sendMessage, presenter);
+public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+RegistrationsReader registrationsReader =  new RegistrationsReader();
+List<Registration> registrations = registrationsReader.getRegistrations();
+    Registration registration= registrations.get(0);
 
-        System.out.println(registrations);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    CLI cli = new CLI(reader);
+    Presenter presenter = new Presenter(cli);
 
-        while (true) {
-            controller.sendMessage();
+    ContactRepository contactRepository = new ContactRepositoryImpl();
+    GetContacts getContacts = new GetContacts(contactRepository);
+    DateProvider dateProvider = new DateProvider();
+    SmsSender smsSender = registrationsReader.getDesiredSmsServiceFrom(registration);
+    SendMessage sendMessage = new SendMessage(smsSender, dateProvider);
+    Controller controller = new Controller(getContacts, sendMessage, presenter);
+
+    System.out.println(registrations);
+
+    while (true) {
+    controller.sendMessage();
         }
     }
 }
