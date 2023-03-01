@@ -23,7 +23,7 @@ public class App {
 public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 RegistrationsReader registrationsReader =  new RegistrationsReader();
 List<Registration> registrations = registrationsReader.getRegistrations();
-    Registration registration= registrations.get(0);
+Registration registration= registrationsReader.getFirst(registrations);
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     CLI cli = new CLI(reader);
@@ -32,7 +32,7 @@ List<Registration> registrations = registrationsReader.getRegistrations();
     ContactRepository contactRepository = new ContactRepositoryImpl();
     GetContacts getContacts = new GetContacts(contactRepository);
     DateProvider dateProvider = new DateProvider();
-    SmsSender smsSender = registrationsReader.getDesiredSmsServiceFrom(registration);
+    SmsSender smsSender = registration.implementation().asSubclass(SmsSender.class).getDeclaredConstructor().newInstance();
     SendMessage sendMessage = new SendMessage(smsSender, dateProvider);
     Controller controller = new Controller(getContacts, sendMessage, presenter);
 

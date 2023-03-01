@@ -42,8 +42,8 @@ public class RegistrationsReader {
             .findAny().get();
     }
 
-    public SmsSender getDesiredSmsServiceFrom(Registration registration)
-      throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        return registration.implementation().asSubclass(SmsSender.class).getDeclaredConstructor().newInstance();
+    public Registration getFirst(List<Registration> registrations){
+        return registrations.get(0);
     }
+
 }
