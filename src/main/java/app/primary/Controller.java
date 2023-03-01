@@ -8,8 +8,12 @@ import app.core.SendMessage;
 import java.util.List;
 
 public class Controller {
-    private final GetContacts getContacts = new GetContacts();
+    private final GetContacts getContacts;
     private final SendMessage sendMessage = new SendMessage();
+
+    public Controller(GetContacts getContacts) {
+        this.getContacts = getContacts;
+    }
 
     public List<Contact> getContacts() {
         return getContacts.execute();

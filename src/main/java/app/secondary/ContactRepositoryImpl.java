@@ -2,9 +2,10 @@ package app.secondary;
 
 import app.core.Contact;
 
+import app.core.ContactRepository;
 import java.util.List;
 
-public class ContactRepository {
+public class ContactRepositoryImpl implements ContactRepository {
     private final List<Contact> contacts = List.of(
         new Contact(
             "Homer Simpson",
