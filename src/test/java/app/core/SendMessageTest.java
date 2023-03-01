@@ -66,7 +66,15 @@ class SendMessageTest {
 
     @Test
     public void itPrependsAnAutumnEmojiInAutumn() {
-        // TODO()
+    when(dateProvider.getMonthNumber()).thenReturn(11);
+    when(dateProvider.getDayOfMonthNumber()).thenReturn(28);
+    Message message = generateMessage("is Autumn!");
+
+    sendMessage.execute(message);
+
+    verify(smsSender).send(any(), messageContent.capture());
+    String expectedMessage = "\uD83C\uDF42is Autumn!";
+    assertThat(messageContent.getValue()).isEqualTo(expectedMessage);
     }
 
     private Message generateMessage(String content) {
