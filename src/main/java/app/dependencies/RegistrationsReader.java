@@ -1,5 +1,7 @@
 package app.dependencies;
 
+import app.core.SmsSender;
+import java.lang.reflect.InvocationTargetException;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -38,5 +40,10 @@ public class RegistrationsReader {
             .stream()
             .filter(clazz -> clazz.getName().equals(name))
             .findAny().get();
+    }
+
+    public SmsSender getDesiredSmsServiceFrom(Registration registration)
+      throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        return registration.implementation().asSubclass(SmsSender.class).getDeclaredConstructor().newInstance();
     }
 }

@@ -29,9 +29,9 @@ class SendMessageTest {
     public void itPrependsAWinterEmojiInWinter() {
     when(dateProvider.getMonthNumber()).thenReturn(3);
     when(dateProvider.getDayOfMonthNumber()).thenReturn(1);
-        Message message = generateMessage("is Winter!");
+    Message message = generateMessage("is Winter!");
 
-        sendMessage.execute(message);
+    sendMessage.execute(message);
 
     verify(smsSender).send(any(), messageContent.capture());
     assertThat(messageContent.getValue()).contains("\u2744\uFE0F");
