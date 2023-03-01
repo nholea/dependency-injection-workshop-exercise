@@ -20,7 +20,7 @@ public class ContactRepositoryImpl implements ContactRepository {
             "740 Evergreen Terrace, 1548 Springfield"
         )
     );
-
+    @Override
     public List<Contact> getAll() {
         return contacts;
     }
