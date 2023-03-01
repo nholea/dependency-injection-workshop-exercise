@@ -1,7 +1,5 @@
 package app.dependencies;
 
-import app.core.SmsSender;
-import java.lang.reflect.InvocationTargetException;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
