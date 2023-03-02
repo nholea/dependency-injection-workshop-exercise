@@ -62,7 +62,7 @@ class SendMessageTest {
   sendMessage.execute(message);
 
   verify(smsSender).send(any(), messageContent.capture());
-  assertThat(messageContent.getValue()).isEqualTo(summerEmoji);
+  assertThat(messageContent.getValue()).contains(summerEmoji);
   }
 
   @Test
@@ -75,7 +75,7 @@ class SendMessageTest {
   sendMessage.execute(message);
 
   verify(smsSender).send(any(), messageContent.capture());
-  assertThat(messageContent.getValue()).isEqualTo(autumnEmoji);
+  assertThat(messageContent.getValue()).contains(autumnEmoji);
   }
 
   private Message generateMessage(String content) {

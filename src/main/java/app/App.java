@@ -42,4 +42,5 @@ Registration registration= registrationsReader.getFirst(registrations);
     controller.sendMessage();
         }
     }
+    
 }
